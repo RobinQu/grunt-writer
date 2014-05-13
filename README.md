@@ -211,3 +211,4 @@ In the example above,
 ## Release History
 
 * 2014-5-13 0.1.0 First opensourced version
+* 2014-5-13 0.1.1 Small fix to adapt to generator-pencil
