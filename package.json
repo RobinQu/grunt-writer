@@ -1,0 +1,25 @@
+{
+  "name": "grunt-writer",
+  "version": "0.1.0",
+  "description": "Convert markdowns to a static site",
+  "main": "tasks/writer.js",
+  "scripts": {
+    "test": "mocha spec/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:RobinQu/grunt-writer.git"
+  },
+  "keywords": [
+    "grunt",
+    "markdown",
+    "static-site",
+    "geneartor"
+  ],
+  "author": "RobinQu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RobinQu/grunt-writer/issues"
+  },
+  "homepage": "https://github.com/RobinQu/grunt-writer"
+}
