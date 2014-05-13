@@ -24,7 +24,8 @@ module.exports = function(grunt) {
         pagination: {
           limit: 5
         },
-        pagesOutputDir: path.resolve("dist/page")
+        pagesOutputDir: path.resolve("dist/page"),
+        primary: "blog"
       }
       
     });

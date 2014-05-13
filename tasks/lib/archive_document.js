@@ -8,7 +8,8 @@ exports.init = function(grunt) {
       var isNumber = function(t) { return !Number.isNaN(parseInt(t, 10)); },
           tree = this.templateContext.tree,
           traverse,
-          archive;
+          archive,
+          primary = this.primary || "blog";//folder that stores the file to be archived
 
       traverse = function(node) {
         var keys = Object.keys(node).sort().reverse(),
@@ -38,7 +39,7 @@ exports.init = function(grunt) {
           return t2 - t1;
         });
       };
-      archive = traverse(tree.blog);
+      archive = traverse(tree[primary]);
       this.templateContext.archive = archive;
       return this.render();
     },
