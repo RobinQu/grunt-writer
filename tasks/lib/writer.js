@@ -9,7 +9,7 @@ exports.init = function(grunt) {
       yaml = require("js-yaml"),
       Document = require("./document").init(grunt),
       handlebars = require("handlebars"),
-      debug = require("debug")("wirter"),
+      debug = require("debug")("writer"),
       util = require("util"),
       async = require("async");
   
