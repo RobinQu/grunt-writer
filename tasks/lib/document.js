@@ -18,9 +18,13 @@ exports.init = function(grunt) {
   };
   
   Document.prototype.init = function (options) {
+    // template context object
     this.templateContext = options.templateContext;
+    // File object
     this.file = options.file;
+    // handlebar instance
     this.renderer = options.renderer;
+    // markdown instance
     this.markdown = options.markdown;
   };
   

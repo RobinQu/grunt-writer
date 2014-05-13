@@ -25,48 +25,46 @@ grunt.loadNpmTasks('grunt-writer');
 In your project's Gruntfile, add a section named `writer` to the data object passed into `grunt.initConfig()`.
 
 
-```js
-grunt.initConfig({
-  writer: {
-    your_target: {
-      options: {
-        // Target-specific options go here.
+    grunt.initConfig({
+      writer: {
+        your_target: {
+          options: {
+            // Target-specific options go here.
+          },
+          files: {
+              // Specify the files you want to convert
+          }
+        }
       },
-      files: {
-          // Specify the files you want to convert
-      }
-    }
-  },
-})
-```
+    })
 
 Example Config:
 
-```js
-grunt.initConfig({
-  writer: {
-    all: {
-      files: [{
-        expand: true,
-        src: "**/*.md",
-        dest: "dist",
-        ext: ".html",
-        cwd: "src/contents"
-      }],
-      options: {
-        markdownOptions: {
-          gfm: true,
-          sanitize: false,
-          breaks: true,
-          smartypants: true,
-          highlight: "auto",
-          langPrefix: "hjs-"
+
+    grunt.initConfig({
+      writer: {
+        all: {
+          files: [{
+            expand: true,
+            src: "**/*.md",
+            dest: "dist",
+            ext: ".html",
+            cwd: "src/contents"
+          }],
+          options: {
+            markdownOptions: {
+              gfm: true,
+              sanitize: false,
+              breaks: true,
+              smartypants: true,
+              highlight: "auto",
+              langPrefix: "hjs-"
+            }
+          }
         }
-      }
-    }
-  },
-})
-```
+      },
+    })
+
 
 ### Options
 
@@ -91,8 +89,11 @@ A hash that stores local variables available in templates
 
 ### documentOptions
 
-Options used to configure `Document` class
+Options used to configure `Document` class. These options will affect all document class.
 
+### documentTypes
+
+Register custom docuemnt types
 
 ## Convert flow
 
@@ -123,16 +124,89 @@ Markdown can have its own metadata
 
 Hypen-sperated contents are formated in YAML. It won't exist in the final HTML docuemnts but avaiable in template rendering context as `metadata` object.
 
+Special meta filed:
+
+* title: Page title
+* slug: page slug that used as part of url
+* date: creation time
+* template: template to render
+* type: document class
+* docOptions: option hash passed to document constructor
+
 ## Document Class
 
 #### Register a custom document class
 
 In options of `Gruntfile.js`:
 
-```
-{
-  "writer": {
-    
-  }
-}
-```
+    {
+      "writer": {
+        documentTypes: {
+          "typeA": DocumentA,
+          "typeB": DocumentB
+        }
+      }
+    }
+
+`DocumentA` and `DocumentB` should be subclass of [Docuemnt](tasks/lib/document.js).
+
+
+#### Sublcass Notes
+
+`write` is the only method that matters.
+
+`Document` itself that has many attributes that are helpful.
+
+
+    var Document = require("./document").init(grunt),
+        assert = require("assert");
+    return Document.extend({
+      write: function() {
+        //TODO
+      }
+    });
+
+Attributes:
+
+* templateContext
+  * tree
+  * docs
+    * metadata
+    * src
+    * ref
+  * filepath
+  * reference
+  * metadata
+  * other data loaded in `context.json`
+* file
+  * dest
+  * src
+  * filename
+  
+#### `tree` and `docs`
+
+`tree` is a document hierarchy tree:
+
+
+    {
+      "@": doc1,
+      folder1: {
+        "@": doc2,
+        "article1.md": doc3
+      },
+      folder2: {
+        "@": doc3
+      }
+    }
+
+In the example above, 
+
+* `doc1`, `doc2`, `doc3` are isntances of `Document` class.
+* `@` is alias to `index.md`
+
+`docs` is a simple array that contains the `Document` instances that sorted by creation date of markdown underneath.
+
+
+## Release History
+
+* 2014-5-13 0.1.0 First opensourced version

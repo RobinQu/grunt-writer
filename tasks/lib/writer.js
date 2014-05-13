@@ -218,9 +218,12 @@ exports.init = function(grunt) {
   };
   
   MarkdownWriter.prototype.convert = function (doc, options) {
-    // console.log(file);
     // merge template data
     options = options || {};
+    if(doc.metadata.docOptions) {
+      _.extend(options, doc.metadata.docOptions);
+      delete doc.metadata.docOptions;//prevent circling
+    }
     options.templateContext = _.extend(Object.create(this.context), {
       //data for current doc
       filepath: doc.src,
