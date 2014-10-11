@@ -1,6 +1,6 @@
 {
   "name": "grunt-writer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Convert markdowns to a static site",
   "main": "tasks/writer.js",
   "scripts": {

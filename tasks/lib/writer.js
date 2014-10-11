@@ -107,7 +107,8 @@ exports.init = function(grunt) {
       if(!src) {
         return "";
       }
-      return new handlebars.SafeString(markdown(src));
+      // return new handlebars.SafeString(markdown(src));
+      return markdown(src);
     });
   };
   
